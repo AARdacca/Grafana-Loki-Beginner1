@@ -172,6 +172,18 @@ helm install loki grafana/loki-stack \
 
 ---
 
+## 🎥 Screen Recording for Guideline
+
+A demo video has been provided to walk you through the setup and usage steps.
+
+[▶ Watch the Demo Video](README/Video.mp4)
+
+📁 **Video Location:** `README/Video.mp4`
+
+> This screen recording demonstrates the full workflow, including configuration, deployment, and key features.  
+> Please ensure your system supports `.mp4` playback. Use a compatible media player like VLC if it doesn't open automatically.
+
+
 ## 📷 Screenshots to Include in Report
 
 * EC2 instance config
@@ -197,6 +209,5 @@ helm install loki grafana/loki-stack \
 
 ## 😋 Author
 
-**Name:** *Your Name*
-**Institution:** *Your Institute*
+**Name:** *Ali Ahasan*
 **Assignment:** Module 7 - Kubernetes Monitoring & Logging
