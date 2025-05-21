@@ -103,26 +103,27 @@ helm install grafana grafana/grafana \
   --namespace monitoring \
   --set adminPassword='admin' \
   --set image.tag="10.2.3" \
-  --set service.type=NodePort
+  --set service.type=ClusterIP
 ```
 
-### Access Grafana
+### Access Grafana via Port Forwarding
 
 ```bash
-kubectl get svc -n monitoring
-curl ifconfig.me
+kubectl port-forward -n monitoring svc/grafana --address 0.0.0.0 3000:80
 ```
 
-Open in browser:
+➡️ Then open in your browser:
 
 ```
-http://<EC2_PUBLIC_IP>:<NodePort>
+http://<EC2_PUBLIC_IP>:3000
 ```
 
 Login:
 
 * Username: `admin`
 * Password: `admin`
+
+✅ Ensure EC2 Security Group allows inbound traffic on port `3000`.
 
 ---
 
@@ -159,7 +160,7 @@ helm install loki grafana/loki-stack \
 
 ---
 
-## 📏 Next Steps
+## 📌 Next Steps
 
 * Create Grafana dashboards for:
 
