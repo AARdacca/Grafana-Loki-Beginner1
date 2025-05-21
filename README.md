@@ -54,6 +54,12 @@ minikube start --driver=docker --memory=4096mb --cpus=2
 kubectl get nodes
 ```
 
+> ⚠️ **Troubleshooting Tip:** If `kubectl` returns a connection error, ensure `minikube start` has completed successfully and run:
+>
+> ```bash
+> minikube update-context
+> ```
+
 ---
 
 ## ⚙️ Step 4: Deploy Sample Application
@@ -62,6 +68,11 @@ kubectl get nodes
 kubectl create namespace application
 kubectl create deployment nginx --image=nginx -n application
 kubectl expose deployment nginx --port=80 --type=NodePort -n application
+
+# Wait until pod is Running
+kubectl get pods -n application -w
+
+# Then get the service URL
 minikube service nginx -n application --url
 ```
 
@@ -124,7 +135,31 @@ Login:
 
 ---
 
-## 📌 Next Steps
+## 📆 Step 6: Logging Setup with Loki & Promtail
+
+```bash
+helm install loki grafana/loki-stack \
+  --namespace monitoring \
+  --set promtail.enabled=true \
+  --set grafana.enabled=false
+```
+
+### Add Loki Data Source in Grafana
+
+1. Go to ⚙️ → Data Sources → Add Data Source
+2. Choose **Loki**
+3. Set URL: `http://loki.monitoring.svc.cluster.local:3100`
+4. Save & Test
+
+### Try LogQL query in Explore tab:
+
+```logql
+{app="nginx"}
+```
+
+---
+
+## 📏 Next Steps
 
 * Create Grafana dashboards for:
 
@@ -132,7 +167,6 @@ Login:
   * Memory usage
   * Node/pod availability
   * Usage trends over time
-* Deploy Loki & Promtail for log monitoring
 * Create LogQL queries for app logs
 
 ---
